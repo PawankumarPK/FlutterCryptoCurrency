@@ -7,7 +7,9 @@ import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   List currencies;
+
   HomePage(this.currencies);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -28,15 +30,19 @@ class _HomePageState extends State<HomePage> {
 
   Widget _cryptoWidget() {
     return new Container(
-        child: new Flexible(
+        child: Column(
+      children: <Widget>[
+        new Flexible(
             child: new ListView.builder(
-      itemCount: currencies.length,
-      itemBuilder: (BuildContext context, int index) {
-        final Map currency = currencies[index];
-        final MaterialColor color = _color[index % _color.length];
-        return _getListItemUi(currency, color);
-      },
-    )));
+          itemCount: widget.currencies.length,
+          itemBuilder: (BuildContext context, int index) {
+            final Map currency = widget.currencies[index];
+            final MaterialColor color = _color[index % _color.length];
+            return _getListItemUi(currency, color);
+          },
+        )),
+      ],
+    ));
   }
 
   ListTile _getListItemUi(Map currency, MaterialColor color) {
@@ -48,7 +54,7 @@ class _HomePageState extends State<HomePage> {
       title: new Text(currency["name"],
           style: new TextStyle(fontWeight: FontWeight.bold)),
       subtitle:
-          _getSubtitleText(currency['cmc_rank'], currency['total_supply']),
+          _getSubtitleText(currency['cmc_rank'].toString(), currency['total_supply'].toString()),
     );
   }
 
