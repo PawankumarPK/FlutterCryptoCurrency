@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List currencies;
+  final List<MaterialColor> _color = [Colors.red, Colors.blue, Colors.indigo];
 
   @override
   void initState() async {
@@ -33,13 +34,16 @@ class _HomePageState extends State<HomePage> {
       body: _cryptoWidget(),
     );
   }
-}
 
-Widget _cryptoWidget() {
-  return new Container(
-      child: new Flexible(
-          child: new ListView.builder(
-    itemCount: 0,
-    itemBuilder: (BuildContext context, int index) {},
-  )));
+  Widget _cryptoWidget() {
+    return new Container(
+        child: new Flexible(
+            child: new ListView.builder(
+      itemCount: currencies.length,
+      itemBuilder: (BuildContext context, int index) {
+        final Map currency = currencies[index];
+        final MaterialColor color = _color[index % _color.length];
+      },
+    )));
+  }
 }
