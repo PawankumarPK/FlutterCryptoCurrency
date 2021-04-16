@@ -6,12 +6,12 @@ import 'dart:convert';
 void main() async {
   List currencies = await getCurrencies();
   print(currencies);
-  runApp(new myApp(currencies));
+  runApp(new MyApp(currencies));
 }
 
-class myApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   final List _curriences;
-  myApp(this._curriences);
+  MyApp(this._curriences);
 
   @override
   Widget build(BuildContext context) {
