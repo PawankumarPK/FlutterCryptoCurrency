@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,8 +9,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List currencies;
+
+  @override
+  void initState() async {
+    super.initState();
+    currencies = await getCurrencies();
+  }
+
+  Future<List> getCurrencies() async {
+    String cryptoUrl =
+        "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=de6dd73f-7bff-40c2-bdfb-1175a65f7fae";
+    http.Response response = await http.get(cryptoUrl);
+    return json.decode(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Crypto Currency"),
+      ),
+      body: _cryptoWidget(),
+    );
   }
+}
+
+Widget _cryptoWidget() {
+  return new Container(
+      child: new Flexible(
+          child: new ListView.builder(
+    itemCount: 0,
+    itemBuilder: (BuildContext context, int index) {},
+  )));
 }
